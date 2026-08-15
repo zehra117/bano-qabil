@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bano Qabil - Home</title>
+<style>
+  :root {
+    --teal: #0d8a6a;
+    --teal-dark: #0a6e54;
+    --text-dark: #1a1a1a;
+    --text-muted: #4a4a4a;
+    --badge-bg: #b7d9cf;
+    --badge-text: #0d8a6a;
+    --blue-badge: #1e4f9c;
+    --border-color: #ececec;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #fff;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 40px;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+  }
+
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 19px;
+    color: var(--text-dark);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .navbar-brand svg { width: 30px; height: 30px; flex-shrink: 0; }
+
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+
+  .navbar-links li { display: flex; align-items: center; }
+
+  .navbar-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s ease;
+  }
+
+  .navbar-links a:hover, .navbar-links a:focus-visible { color: var(--teal); outline: none; }
+
+  .badge-new {
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+  }
+
+  .btn-register {
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    padding: 12px 26px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+  }
+
+  .btn-register:hover, .btn-register:focus-visible { background: var(--teal-dark); outline: none; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+  }
+
+  .hamburger span {
+    width: 24px;
+    height: 2px;
+    background: var(--text-dark);
+    display: block;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 900px) {
+    .navbar-links {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      max-height: 0;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border-color);
+      transition: max-height 0.3s ease;
+    }
+    .navbar-links.open { max-height: 500px; }
+    .navbar-links li { width: 100%; padding: 12px 24px; border-top: 1px solid var(--border-color); }
+    .navbar-links .btn-register-item { padding: 16px 24px; }
+    .btn-register { width: 100%; }
+    .hamburger { display: flex; }
+  }
+
+  /* HERO BANNER */
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    min-height: 420px;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 40px),
+      repeating-linear-gradient(-45deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 40px);
+    pointer-events: none;
+  }
+
+  .accent-top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 260px;
+    height: 90px;
+    background: var(--teal);
+    border-bottom-left-radius: 100% 60px;
+  }
+
+  .accent-bottom-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 220px;
+    height: 160px;
+    background: var(--teal);
+    clip-path: path('M0,160 L0,20 C 60,0 120,40 100,90 C 85,125 140,140 180,120 C 210,105 220,130 220,160 Z');
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 46%;
+    max-width: 46%;
+    padding: 40px 30px 40px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .logos { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+
+  .logo-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--teal);
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.1;
+    flex-shrink: 0;
+  }
+
+  .logo-badge {
+    width: 60px;
+    height: 60px;
+    background: var(--blue-badge);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .logo-badge span { font-size: 20px; line-height: 1; margin-bottom: 2px; }
+
+  .hero-heading { font-size: 42px; font-weight: 800; line-height: 1.1; margin: 0 0 14px 0; }
+  .hero-heading .line1 { color: var(--text-dark); display: block; }
+  .hero-heading .line2 { color: var(--teal); display: block; }
+
+  .hero-desc { font-size: 16px; color: var(--text-muted); line-height: 1.5; max-width: 440px; margin: 0 0 18px 0; }
+
+  .hero-underline { width: 90px; height: 3px; background: #cfcfcf; }
+
+  .hero-media {
+    position: relative;
+    flex: 1;
+    background-image: url('banner_1.jpeg');
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+  }
+
+  @media (max-width: 900px) {
+    .hero { flex-direction: column; min-height: unset; }
+    .hero-content { flex: 1 1 auto; max-width: 100%; padding: 100px 24px 24px 24px; }
+    .hero-heading { font-size: 32px; }
+    .hero-media { min-height: 260px; }
+    .accent-bottom-left { display: none; }
+  }
+
+  /* IMPACT STATS SECTION */
+  .stats-section {
+    background: radial-gradient(ellipse at center top, #2a2a2a 0%, #141414 70%);
+    padding: 70px 24px 80px;
+    text-align: center;
+  }
+
+  .stats-pill {
+    display: inline-block;
+    background: #123a33;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 22px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+
+  .stats-heading {
+    display: inline-block;
+    background: #1237c9;
+    color: #fff;
+    font-size: 34px;
+    font-weight: 800;
+    padding: 8px 24px;
+    margin: 0 0 16px 0;
+    line-height: 1.3;
+  }
+
+  .stats-subtext {
+    color: #cfcfcf;
+    font-size: 16px;
+    margin: 0 0 44px 0;
+  }
+
+  .stats-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .stat-card {
+    position: relative;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 26px 22px;
+    width: 210px;
+    text-align: left;
+    overflow: hidden;
+  }
+
+  .stat-card::after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(13,138,106,0.35);
+  }
+
+  .stat-number {
+    color: var(--teal);
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    color: #e8e8e8;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 700px) {
+    .stats-heading { font-size: 24px; }
+    .stat-card { width: 100%; max-width: 320px; }
+  }
+
+  /* WHAT WE OFFER SECTION */
+  .offer-section {
+    background: #eef3f2;
+    padding: 70px 24px 80px;
+    text-align: center;
+  }
+
+  .offer-pill {
+    display: inline-block;
+    background: #d6ece6;
+    color: var(--teal);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 22px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+
+  .offer-heading {
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin: 0 0 16px 0;
+  }
+
+  .offer-heading span { color: var(--teal); }
+
+  .offer-subtext {
+    color: var(--text-muted);
+    font-size: 16px;
+    margin: 0 0 44px 0;
+  }
+
+  .offer-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .offer-card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    width: 340px;
+    text-align: left;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  }
+
+  .offer-image {
+    position: relative;
+    height: 220px;
+    background: linear-gradient(135deg, #cfd8d6, #a9bab6);
+  }
+
+  .offer-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: #fff;
+    color: var(--text-dark);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+
+  .offer-body { padding: 20px 22px 26px; }
+
+  .offer-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 8px 0;
+  }
+
+  .offer-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (max-width: 700px) {
+    .offer-heading { font-size: 28px; }
+    .offer-card { width: 100%; max-width: 380px; }
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    background: linear-gradient(135deg, #1a8f7a, #0d8a6a);
+    padding: 70px 24px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .cta-heading {
+    font-size: 34px;
+    font-weight: 800;
+    margin: 0 0 18px 0;
+  }
+
+  .cta-subtext {
+    font-size: 16px;
+    color: #e4f3ef;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+  }
+
+  .cta-primary {
+    display: inline-block;
+    background: #fff;
+    color: var(--teal);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 34px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-bottom: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .cta-secondary {
+    display: block;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: underline;
+  }
+
+  /* FOOTER */
+  .site-footer {
+    background: #16181a;
+    color: #cfe0da;
+    padding: 50px 40px 0;
+  }
+
+  .footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+  }
+
+  .footer-col { flex: 1; min-width: 200px; }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 19px;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+
+  .footer-brand svg { width: 28px; height: 28px; flex-shrink: 0; }
+
+  .footer-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #9fa8a5;
+    margin: 0 0 18px 0;
+    max-width: 280px;
+  }
+
+  .footer-heading {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+  }
+
+  .footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer-links li { margin-bottom: 12px; }
+
+  .footer-links a {
+    color: #9fa8a5;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover { color: var(--teal); }
+
+  .footer-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    text-decoration: none;
+    z-index: 10;
+  }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 13px;
+    color: #cfe0da;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .footer-social a {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s ease;
+  }
+
+  .footer-social a:hover { background: var(--teal); }
+
+  @media (max-width: 700px) {
+    .cta-heading { font-size: 26px; }
+    .site-footer { padding: 40px 24px 0; }
+    .footer-bottom { justify-content: center; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="#" class="navbar-brand">
+    <img src="logo.PNG" alt="Bano Qabil logo" style="width:34px;height:34px;object-fit:contain;flex-shrink:0;">
+    Bano Qabil
+  </a>
+
+  <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+
+  <ul class="navbar-links" id="navbarLinks">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Students <span class="badge-new">NEW</span></a></li>
+    <li><a href="#">Courses</a></li>
+    <li><a href="#">Faculty</a></li>
+    <li><a href="#">Campuses</a></li>
+    <li><a href="#">News</a></li>
+    <li><a href="#">Careers</a></li>
+    <li><a href="#">Contact &amp; Complaints</a></li>
+    <li class="btn-register-item"><button class="btn-register">Register</button></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="accent-top-right"></div>
+  <div class="accent-bottom-left"></div>
+
+  <div class="hero-content">
+    <div class="logos">
+      <div class="logo-circle" style="border:none;padding:0;overflow:hidden;">
+        <img src="logo.PNG" alt="Bano Qabil logo" style="width:100%;height:100%;object-fit:contain;">
+      </div>
+      <div class="logo-badge"><span>&#9770;</span>ALKHIDMAT</div>
+    </div>
+
+    <h1 class="hero-heading">
+      <span class="line1">Empowering</span>
+      <span class="line2">A new era</span>
+    </h1>
+
+    <p class="hero-desc">
+      Empowering Pakistani Youth with world-class IT education and
+      training programs to build a brighter digital future.
+    </p>
+
+    <div class="hero-underline"></div>
+  </div>
+
+  <div class="hero-media"></div>
+</section>
+
+<section class="stats-section">
+  <div class="stats-pill">Our Impact in Numbers</div>
+  <h2 class="stats-heading">Transforming Lives Through Education</h2>
+  <p class="stats-subtext">Join thousands who have already started their journey to success</p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-number">75,000+</div>
+      <div class="stat-label">Students Trained</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">50+</div>
+      <div class="stat-label">Active Facilities</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">06</div>
+      <div class="stat-label">Incubation Centres</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">29</div>
+      <div class="stat-label">High Tech Courses</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">100K+</div>
+      <div class="stat-label">Registered Tech Employee</div>
+    </div>
+  </div>
+</section>
+
+<section class="offer-section">
+  <div class="offer-pill">Our Services</div>
+  <h2 class="offer-heading">What We <span>Offer</span></h2>
+  <p class="offer-subtext">Comprehensive solutions to transform you from a learner to a professional</p>
+
+  <div class="offer-grid">
+    <div class="offer-card">
+      <div class="offer-image" style="background-image:url('IT1.png');background-size:cover;background-position:center;">
+        <div class="offer-badge">01</div>
+      </div>
+      <div class="offer-body">
+        <h3 class="offer-title">Advanced IT Training</h3>
+        <p class="offer-desc">Master the digital landscape with our hands-on courses taught by industry professionals.</p>
+      </div>
+    </div>
+
+    <div class="offer-card">
+      <div class="offer-image" style="background-image:url('IT2.png');background-size:cover;background-position:center;">
+        <div class="offer-badge">02</div>
+      </div>
+      <div class="offer-body">
+        <h3 class="offer-title">Strategic Incubation Centre</h3>
+        <p class="offer-desc">Transition from student to professional with mentorship, resources, and real-world project support.</p>
+      </div>
+    </div>
+
+    <div class="offer-card">
+      <div class="offer-image" style="background-image:url('IT3.png');background-size:cover;background-position:center;">
+        <div class="offer-badge">03</div>
+      </div>
+      <div class="offer-body">
+        <h3 class="offer-title">Dedicated Job Portal</h3>
+        <p class="offer-desc">We don't just train; we connect. Access exclusive job opportunities through our career platform.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2 class="cta-heading">Ready to Transform Your Future?</h2>
+  <p class="cta-subtext">Join thousands of students already learning with Bano Qabil and start your journey in tech today.</p>
+  <a href="#" class="cta-primary">Get Started Today</a>
+  <a href="#" class="cta-secondary">Learn More</a>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-brand">
+        <img src="logo.PNG" alt="Bano Qabil logo" style="width:30px;height:30px;object-fit:contain;">
+        Bano Qabil
+      </div>
+      <p class="footer-desc">Alkhidmat Foundation Pakistan Initiative - Empowering Pakistan's youth with world-class IT education and training programs to build a brighter digital future.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-heading">Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Courses</a></li>
+        <li><a href="#">Campuses</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Success Stories</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Interview-Locations</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-heading">Popular Courses</h4>
+      <ul class="footer-links">
+        <li><a href="#">Web Development</a></li>
+        <li><a href="#">Mobile App Development</a></li>
+        <li><a href="#">Artificial Intelligence</a></li>
+        <li><a href="#">Data Science</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 class="footer-heading">Contact Us</h4>
+      <ul class="footer-links">
+        <li>501, Quaideen Colony, Karachi, Pakistan</li>
+        <li>021-111-503-504 (Ext 194)</li>
+        <li>WhatsApp: 0317-8226244</li>
+        <li>banoqabil.khi@alkhidmat.com</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>&copy; 2026 Bano Qabil. All rights reserved.</span>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook">f</a>
+      <a href="#" aria-label="Twitter">x</a>
+    </div>
+  </div>
+</footer>
+
+<a href="#" class="footer-fab" aria-label="Contact">&#128188;</a>
+
+<script>
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const navbarLinks = document.getElementById('navbarLinks');
+
+  hamburgerBtn.addEventListener('click', () => {
+    const isOpen = navbarLinks.classList.toggle('open');
+    hamburgerBtn.classList.toggle('active', isOpen);
+    hamburgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  navbarLinks.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('click', () => {
+      navbarLinks.classList.remove('open');
+      hamburgerBtn.classList.remove('active');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) {
+      navbarLinks.classList.remove('open');
+      hamburgerBtn.classList.remove('active');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
+
+</body>
+</html>
